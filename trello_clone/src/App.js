@@ -1,11 +1,12 @@
 import Welcome from './Welcome';
 import Clock from './Clock';
 import Toggle from './Toggle';
+import Card from './Card';
 
 function App() {
   return (
     <div>
-      <Welcome name="Sara" />
+      <Card text="Virtually touching base about revolutionizing platforms will make us" />
       <Welcome name="Cahal" />
       <Welcome name="Edite" />
       <Clock />
