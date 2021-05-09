@@ -1,39 +1,39 @@
 import React from "react";
+import Task from './Task';
+import styled from 'styled-components';
+import { Droppable } from 'react-beautiful-dnd';
 
-class Column extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isToggleOn: true, deleted: false };
-    // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this);
-    this.deleteButton = this.deleteButton.bind(this);
-  }
+const Container = styled.div`
+  margin: 8px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+`;
 
-  handleClick() {
-    this.setState(state => ({
-      isToggleOn: !state.isToggleOn
-    }));
-  }
+const Title = styled.h3`
+  padding: 8px;
+`;
+const TaskList = styled.div`
+  padding: 8px;
+`;
 
-  deleteColumn() {
-    this.setState(state => ({
-      deleted: true
-    }));
-  }
-
+export default class Column extends React.Component {
   render() {
-    return this.state.deleted ? null : (
-        <div>
-            
-        </div>
-    //   <div>
-    //     <button onClick={this.handleClick}>
-    //       {this.state.isToggleOn ? 'ON' : 'OFF'}
-    //     </button>
-    //     <button onClick={this.deleteButton}>DELETE toggle</button>
-    //   </div>
-    );
+    return (
+      <Container>
+        <Title>{this.props.column.title}</Title>
+        <Droppable droppableId={this.props.column.id}>
+          {(provided) => (
+            <TaskList
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {this.props.tasks.map(task => <Task key={task.id} task={task} />)}
+              {provided.placeholder}
+            </TaskList>
+          )}
+
+        </Droppable>
+      </Container>
+    )
   }
 }
-
-export default Column;

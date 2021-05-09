@@ -1,6 +1,7 @@
 import React from "react";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
+// import Modal from "react-bootstrap/Modal";
+// import Button from "react-bootstrap/Button";
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 class Card extends React.Component {
   constructor(props) {
@@ -45,29 +46,52 @@ class Card extends React.Component {
     };
 
 
-    return this.state.deleted ? null : (
-      <div>
-        <div onClick={this.handleModalOpen} style={myStyle}>
-          <p style={{ margin: '10px' }}>{this.state.text}</p>
-        </div>
+    // return this.state.deleted ? null : (
+    //   <div draggable={true} 
+    //   onDragStart={event.dataTransfer.setData('text/plain', 'This text may be dragged')}>
+    //     <div onClick={this.handleModalOpen} style={myStyle}>
+    //       <p style={{ margin: '10px' }}>{this.state.text}</p>
+    //     </div>
 
-        <Modal show={this.state.showEditModal} onHide={this.handleModalClose}>
-          <Modal.Header>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleModalClose}>
-              Close
-          </Button>
-            <Button variant="primary" onClick={this.handleModalClose}>
-              Save Changes
-          </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+    //     <Modal show={this.state.showEditModal} onHide={this.handleModalClose}>
+    //       <Modal.Header>
+    //         <Modal.Title>Modal heading</Modal.Title>
+    //       </Modal.Header>
+    //       <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+    //       <Modal.Footer>
+    //         <Button variant="secondary" onClick={this.handleModalClose}>
+    //           Close
+    //       </Button>
+    //         <Button variant="danger" onClick={this.deleteCard}>
+    //           Save Changes
+    //       </Button>
+    //       </Modal.Footer>
+    //     </Modal>
+    //   </div>
+    // );
 
+    const initialData = {
+      tasks: {
+        'task-1': {id: 'task-1', content: 'Take out garbage'},
+        'task-2': {id: 'task-2', content: 'Go grocery shopping'},
+        'task-3': {id: 'task-3', content: 'Cook Dinner'},
+        'task-4': {id: 'task-4', content: 'Destroy world'},
+      },
+      columns: {
+        'column-1': {
+          id: 'column-1',
+          title: 'To do',
+          taskIds: ['task-1', 'task-2', 'task-3', 'task-4']
+        }
+      },
+      columnOrder: ['column-1']
+
+    };
+
+    return (
+      <div>s</div>
     );
+
   }
 }
 
