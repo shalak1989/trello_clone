@@ -15,13 +15,13 @@ class App extends React.Component {
     }
 
     if (
-      destination.dropabbleId === source.dropabbleId &&
+      destination.droppable === source.droppableId &&
       destination.index === source.index
     ) {
       return;
     }
 
-    const column = this.state.columns[source.dropabbleId];
+    const column = this.state.columns[source.droppableId];
     const newTaskIds = Array.from(column.taskIds);
     newTaskIds.splice(source.index, 1);
     newTaskIds.splice(destination.index, 0, draggableId);
