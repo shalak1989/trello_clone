@@ -14,10 +14,10 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+//TODO add hover tooltip on column 
+
 const Title = styled.h3`
   padding: 8px;
-  position: middle;
-  margin: 0 auto;
 `;
 const TaskList = styled.div`
   padding: 8px;
@@ -32,6 +32,50 @@ const buttonStyles = {
 }
 
 export default class Column extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tasks: props.tasks,
+      index: props.index
+    }
+    // this.state = {
+    //   //text: props.text,
+    //   deleted: false,
+    //   showEditModal: false
+    // };
+    // this.deleteTask = this.deleteTask.bind(this);
+    // this.handleModalOpen = this.handleModalOpen.bind(this);
+    this.addTask = this.addTask.bind(this);
+    this.generateRandomId = this.generateRandomId.bind(this);
+  }
+
+
+
+  addTask() {
+    const taskTitle = prompt("Enter a title for the task");
+    const len = this.props.tasks.length
+    const index = len > 0 ? len : 0
+    const taskId = this.generateRandomId(taskTitle);
+    const newTask = <Task key={taskId} title={taskTitle} index={index} />
+
+    const newState = {
+      ...this.state,
+      tasks: {
+        ...this.state.tasks,
+        newTask,
+      },
+    };
+    console.log(newState);
+    this.setState(newState);
+
+    // console.log(this.state);
+  }
+
+  generateRandomId(text) {
+    return text.trim().replaceAll(' ', '') + Math.floor(Math.random() * 10000);
+  }
+
+
   render() {
     return (
       <Draggable
@@ -44,11 +88,11 @@ export default class Column extends React.Component {
             <Title {...provided.dragHandleProps}>
               {this.props.column.title}
             </Title>
-            <Button style={buttonStyles}  variant="primary" onClick={this.deleteTask}>
+            <Button style={buttonStyles} variant="primary" onClick={this.addTask}>
               Add New Task
             </Button>
             <Droppable droppableId={this.props.column.id} type="task">
-              {(provided, snapshot) => (
+              {(provided) => (
                 <TaskList
                   ref={provided.innerRef}
                   {...provided.droppableProps}

@@ -15,6 +15,7 @@ class App extends React.Component {
 
   onDragEnd = result => {
     const { destination, source, draggableId, type } = result;
+    //console.log(result);
 
     if (!destination) {
       return;
@@ -40,15 +41,19 @@ class App extends React.Component {
       return;
     }
 
+    // console.log(source.droppableId);
+    // console.log(destination.droppableId);
 
     const start = this.state.columns[source.droppableId];
     const finish = this.state.columns[destination.droppableId];
 
     if (start === finish) {
+      
       const newTaskIds = Array.from(start.taskIds);
       newTaskIds.splice(source.index, 1);
       newTaskIds.splice(destination.index, 0, draggableId);
 
+      debugger;
       const newColumn = {
         ...start,
         taskIds: newTaskIds,
@@ -62,7 +67,9 @@ class App extends React.Component {
         }
       };
 
+
       this.setState(newState);
+  
       return;
     }
 
@@ -90,8 +97,9 @@ class App extends React.Component {
         [newFinish.id]: newFinish,
       },
     };
-
     this.setState(newState);
+    console.log(this.state);
+
   };
 
   render() {

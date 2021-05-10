@@ -16,7 +16,7 @@ export default class Task extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //text: props.text,
+      title: props.task.title,
       deleted: false,
       showEditModal: false
     };
@@ -56,7 +56,7 @@ export default class Task extends React.Component {
               isDragging={snapshot.isDragging}
               onClick={this.handleModalOpen}
             >
-              {this.props.task.content}
+              {this.props.task.title}
             </Container>
           )}
         </Draggable>
@@ -71,7 +71,7 @@ export default class Task extends React.Component {
               Close
             </Button>
             <Button variant="danger" onClick={this.deleteTask}>
-              Save Changes
+              Delete Card
             </Button>
           </Modal.Footer>
         </Modal>
