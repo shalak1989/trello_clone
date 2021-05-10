@@ -12,10 +12,9 @@ const Container = styled.div`
 
 class App extends React.Component {
   state = initialData
-
+  debugger;
   onDragEnd = result => {
     const { destination, source, draggableId, type } = result;
-    //console.log(result);
 
     if (!destination) {
       return;
@@ -40,10 +39,7 @@ class App extends React.Component {
       this.setState(newState);
       return;
     }
-
-    // console.log(source.droppableId);
-    // console.log(destination.droppableId);
-
+    
     const start = this.state.columns[source.droppableId];
     const finish = this.state.columns[destination.droppableId];
 
@@ -53,7 +49,6 @@ class App extends React.Component {
       newTaskIds.splice(source.index, 1);
       newTaskIds.splice(destination.index, 0, draggableId);
 
-      debugger;
       const newColumn = {
         ...start,
         taskIds: newTaskIds,

@@ -16,13 +16,17 @@ export default class Task extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: props.task.title,
+      title: props.title,
       deleted: false,
-      showEditModal: false
+      content: props.content ? props.content : "",
+      showEditModal: false,
+      index: props.index,
+      id: props.id
     };
     this.deleteTask = this.deleteTask.bind(this);
     this.handleModalOpen = this.handleModalOpen.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
   componentDidMount() {
@@ -43,11 +47,17 @@ export default class Task extends React.Component {
     this.setState({ showEditModal: false });
   }
 
+  handleFieldChange(e, field) {
+    this.setState({
+      [field]: e.target.value
+    });
+  }
+
   render() {
 
     return this.state.deleted ? null : (
       <div>
-        <Draggable draggableId={this.props.task.id} index={this.props.index}>
+        <Draggable draggableId={this.state.id} index={this.props.index}>
           {(provided, snapshot) => (
             <Container
               {...provided.draggableProps}
@@ -56,16 +66,28 @@ export default class Task extends React.Component {
               isDragging={snapshot.isDragging}
               onClick={this.handleModalOpen}
             >
-              {this.props.task.title}
+              {this.state.title}
             </Container>
           )}
         </Draggable>
 
         <Modal show={this.state.showEditModal} onHide={this.handleModalClose}>
           <Modal.Header>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>
+              <input
+                type="text"
+                value={this.state.title}
+                onChange={e => this.handleFieldChange(e, "title")}
+              />
+            </Modal.Title>
           </Modal.Header>
-          <Modal.Body>{"tao"}</Modal.Body>
+          <Modal.Body>
+            <input
+              type="text"
+              value={this.state.content}
+              onChange={e => this.handleFieldChange(e, "content")}
+            />
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleModalClose}>
               Close

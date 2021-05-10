@@ -51,24 +51,30 @@ export default class Column extends React.Component {
 
 
 
+  //current this isn't working, ran out of time to fix
   addTask() {
     const taskTitle = prompt("Enter a title for the task");
     const len = this.props.tasks.length
-    const index = len > 0 ? len : 0
+    //const index = len > 0 ? len : 0
     const taskId = this.generateRandomId(taskTitle);
-    const newTask = <Task key={taskId} title={taskTitle} index={index} />
-
+    const newTask = {
+      id: taskId,
+      title: taskTitle,
+    }
+    
+    const newTasks = [...this.state.tasks];
+    newTasks.push(newTask);
     const newState = {
       ...this.state,
-      tasks: {
+      tasks: [
         ...this.state.tasks,
-        newTask,
-      },
+        newTasks,
+      ],
     };
     console.log(newState);
     this.setState(newState);
-
-    // console.log(this.state);
+    console.log(this.state.tasks);
+  
   }
 
   generateRandomId(text) {
@@ -97,8 +103,11 @@ export default class Column extends React.Component {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  {this.props.tasks.map((task, index) => (
+                  {/* {this.props.tasks.map((task, index) => (
                     <Task key={task.id} task={task} index={index} />
+                  ))} */}
+                  {this.props.tasks.map((task, index) => (
+                    <Task key={task.id} title={task.title} id={task.id} index={index} />
                   ))}
                   {provided.placeholder}
                 </TaskList>
