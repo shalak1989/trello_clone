@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Column from './Column';
 import initialData from './initial-data';
 import styled from 'styled-components';
+import Button from "react-bootstrap/Button";
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const Container = styled.div`

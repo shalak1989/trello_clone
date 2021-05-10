@@ -2,6 +2,7 @@ import React from "react";
 import Task from './Task';
 import styled, { ThemeProvider } from 'styled-components';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import Button from "react-bootstrap/Button";
 
 const Container = styled.div`
   margin: 8px;
@@ -15,12 +16,20 @@ const Container = styled.div`
 
 const Title = styled.h3`
   padding: 8px;
+  position: middle;
+  margin: 0 auto;
 `;
 const TaskList = styled.div`
   padding: 8px;
   flex-grow: 1;
   min-height: 100px;
 `;
+
+const buttonStyles = {
+  width: "75%",
+  position: "middle",
+  margin: "0 auto",
+}
 
 export default class Column extends React.Component {
   render() {
@@ -35,6 +44,9 @@ export default class Column extends React.Component {
             <Title {...provided.dragHandleProps}>
               {this.props.column.title}
             </Title>
+            <Button style={buttonStyles}  variant="primary" onClick={this.deleteTask}>
+              Add New Task
+            </Button>
             <Droppable droppableId={this.props.column.id} type="task">
               {(provided, snapshot) => (
                 <TaskList
