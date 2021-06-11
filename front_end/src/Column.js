@@ -34,53 +34,13 @@ const buttonStyles = {
 export default class Column extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tasks: props.tasks,
-      index: props.index
-    }
-    // this.state = {
-    //   //text: props.text,
-    //   deleted: false,
-    //   showEditModal: false
-    // };
-    // this.deleteTask = this.deleteTask.bind(this);
-    // this.handleModalOpen = this.handleModalOpen.bind(this);
-    this.addTask = this.addTask.bind(this);
-    this.generateRandomId = this.generateRandomId.bind(this);
+    //if you pass this function in as a prop "this" will reference the context of the parent component
+
   }
 
-
-
-  //current this isn't working, ran out of time to fix
-  addTask() {
-    const taskTitle = prompt("Enter a title for the task");
-    const len = this.props.tasks.length
-    //const index = len > 0 ? len : 0
-    const taskId = this.generateRandomId(taskTitle);
-    const newTask = {
-      id: taskId,
-      title: taskTitle,
-    }
-    
-    const newTasks = [...this.state.tasks];
-    newTasks.push(newTask);
-    const newState = {
-      ...this.state,
-      tasks: [
-        ...this.state.tasks,
-        newTasks,
-      ],
-    };
-    console.log(newState);
-    this.setState(newState);
-    console.log(this.state.tasks);
-  
-  }
-
-  generateRandomId(text) {
-    return text.trim().replaceAll(' ', '') + Math.floor(Math.random() * 10000);
-  }
-
+  addTask = () => {
+    this.props.addTask(this.props.column.id);
+  }  
 
   render() {
     return (
